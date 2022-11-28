@@ -3,7 +3,7 @@ package com.company.sintra.exception;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public enum UniBootCampErrorCodes {
+public enum ErrorCodes {
     USER_NOT_FOUND("USER-NOT-FOUND"),
     EXIST_USER_NAME("USER-ALREADY-EXIST"),
     LENGTH_NOT_VALID("LENGTH-NOT-VALID"),
