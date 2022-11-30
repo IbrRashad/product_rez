@@ -2,6 +2,9 @@ plugins {
     id 'org.springframework.boot' version '2.7.5'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'java'
+    id "com.google.cloud.artifactregistry.gradle-plugin" version "2.2.0"
+
+
 }
 
 group = 'com.company'
@@ -14,6 +17,7 @@ configurations {
     }
 }
 
+//apply plugin: "com.google.cloud.artifactregistry.gradle-plugin"
 repositories {
     mavenCentral()
 }
@@ -30,6 +34,8 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'com.google.cloud.tools:appengine-gradle-plugin:2.4.5'
+
 }
 
 tasks.named('test') {

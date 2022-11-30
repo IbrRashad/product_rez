@@ -20,15 +20,15 @@ public class GenericExceptionHandler {
 
     private final TranslationService translationService;
 
-    @ExceptionHandler(UniBootCampGenericException.class)
-    public ResponseEntity<ErrorResponseDTO> handleGenericException(UniBootCampGenericException ex, WebRequest request) {
+    @ExceptionHandler(GenericException.class)
+    public ResponseEntity<ErrorResponseDTO> handleGenericException(GenericException ex, WebRequest request) {
         ex.getStackTrace();
         var path = ((ServletWebRequest) request).getRequest().getRequestURL().toString();
         String lang = request.getHeader(ACCEPT_LANGUAGE);
         return createErrorResponse(ex, path, request);
     }
 
-    private ResponseEntity<ErrorResponseDTO> createErrorResponse(UniBootCampGenericException ex,
+    private ResponseEntity<ErrorResponseDTO> createErrorResponse(GenericException ex,
                                                                  String path, WebRequest request) {
         ErrorResponseDTO build = ErrorResponseDTO.builder()
                 .status(ex.getStatus())
