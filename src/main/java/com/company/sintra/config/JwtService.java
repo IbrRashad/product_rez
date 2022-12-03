@@ -51,7 +51,7 @@ public class JwtService {
                 .claim("userId", user.getId())
                 .claim("role", user.getAuthorities().stream().map(authority -> authority.getRole().name()).collect(
                         Collectors.toList()))
-                .setExpiration(Date.from(Instant.now().plusSeconds(600)))
+                .setExpiration(Date.from(Instant.now().plusSeconds(6000)))
                 .setHeader(Map.of("type", "JWT"))
                 .signWith(key, SignatureAlgorithm.HS256);
         return jwtBuilder.compact();

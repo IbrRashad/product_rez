@@ -60,4 +60,8 @@ public class UserService {
             throw new InvalidPasswordException();
         }
     }
+//    public  User nese(){
+//        User user=
+//
+//    }
 }

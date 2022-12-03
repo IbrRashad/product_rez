@@ -31,6 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v2/manager").hasAuthority("MANAGER")
                 .antMatchers("/v2/hello").permitAll()
                 .antMatchers("/api/v1/**").permitAll();
+
         http.logout().disable();
         http.formLogin().disable();
         http.apply(jwtAuthFilterConfigurationAdapter);

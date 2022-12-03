@@ -28,9 +28,9 @@ public class ProductRezApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        Authority a = new Authority();
-//        a.setRole(Role.MANAGER);
-//
+        Authority a = new Authority();
+        a.setRole(Role.MANAGER);
+
 //        Authority b = new Authority();
 //        b.setRole(Role.USER);
 //
