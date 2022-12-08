@@ -1,6 +1,6 @@
 
 server:
-  port: 8080
+  port: 8085
 
 spring:
   jpa:
@@ -10,8 +10,8 @@ spring:
   application:
     name: ProductRez
   datasource:
-    url: jdbc:postgresql://localhost:5432/epm
+    url: jdbc:postgresql://localhost:5432/postgres
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: 12345
+    password: Mirferid121
 

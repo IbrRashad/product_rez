@@ -4,6 +4,7 @@ plugins {
     id 'java'
     id "com.google.cloud.artifactregistry.gradle-plugin" version "2.2.0"
     id "io.swagger.core.v3.swagger-gradle-plugin" version "2.2.7"
+    id 'war'
 
 }
 
@@ -34,6 +35,7 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 
 
 }

@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.Set;
 
 @SpringBootApplication
 @RequiredArgsConstructor
-public class ProductRezApplication implements CommandLineRunner {
+public class ProductRezApplication  implements CommandLineRunner  {
 
     private final AuthorityRepository authorityRepository;
 
