@@ -3,7 +3,6 @@ package com.company.sintra.controller;
 
 import com.company.sintra.dto.UserRegisterRequest;
 import com.company.sintra.dto.UserRegisterResponse;
-import com.company.sintra.service.IAuthenticationFacade;
 import com.company.sintra.service.impl.AuthenticationFacade;
 import com.company.sintra.service.impl.UserService;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
     private final AuthenticationFacade authenticationFacade;
-
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public void register(@RequestBody UserRegisterRequest userRegisterRequest) {
