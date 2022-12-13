@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: epm
+spec:
+  selector:
+    matchLabels:
+      app: demo-app
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      containers:
+        - name: epm
+          image: ingressgroup/product_rez:1.0.b3533a5
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DATABASE_HOSTNAME
+              value: db
+            - name: DATABASE_PASSWORD
+              value: "hello"

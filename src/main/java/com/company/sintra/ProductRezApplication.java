@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.List;
+
 @SpringBootApplication
 @RequiredArgsConstructor
 public class ProductRezApplication  implements CommandLineRunner  {
@@ -20,12 +23,14 @@ public class ProductRezApplication  implements CommandLineRunner  {
 
     @Override
     public void run(String... args) throws Exception {
-        Authority a = new Authority();
-        a.setRole(Role.MANAGER);
+        if(authorityRepository.findAll().size()==0) {
+            Authority a = new Authority();
+            a.setRole(Role.MANAGER);
 
-//        Authority b = new Authority();
-//        b.setRole(Role.USER);
-//
-//        authorityRepository.saveAll(List.of(a,b));
+            Authority b = new Authority();
+            b.setRole(Role.USER);
+
+            authorityRepository.saveAll(List.of(a, b));
+        }
     }
 }

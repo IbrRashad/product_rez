@@ -1,17 +1,24 @@
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+
+
 plugins {
     id 'org.springframework.boot' version '2.7.5'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'java'
-    id "com.google.cloud.artifactregistry.gradle-plugin" version "2.2.0"
-    id "io.swagger.core.v3.swagger-gradle-plugin" version "2.2.7"
-    id 'war'
-    id 'application'
+//    id "com.google.cloud.artifactregistry.gradle-plugin" version "2.2.0"
+//    id "io.swagger.core.v3.swagger-" + "gradle-plugin" version "2.2.7"
+//    id 'application'
+    id 'com.bmuschko.docker-remote-api' version "$dockerVersion"
+
 
 }
-mainClassName = 'com.company.sintra.ProductRezApplication'
+//mainClassName = 'com.company.sintra.ProductRezApplication'
 
 group = 'com.company'
-version = '0.0.1'
+def hash = 'git rev-parse --short HEAD'.execute().text.trim()
+version = "$projectVersion.$hash"
 sourceCompatibility = '11'
 
 configurations {
@@ -19,6 +26,11 @@ configurations {
         extendsFrom annotationProcessor
     }
 }
+
+jar {
+    enabled = false
+}
+
 
 repositories {
     mavenCentral()
@@ -33,10 +45,37 @@ dependencies {
     implementation "io.jsonwebtoken:jjwt-api:0.11.2"
     implementation "io.jsonwebtoken:jjwt-impl:0.11.2"
     implementation "io.jsonwebtoken:jjwt-jackson:0.11.2"
-    runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+//    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'junit:junit:4.12'
 }
+
+task dockerFile(type: Dockerfile, dependsOn: assemble) {
+    destFile.set(project.file('/build/libs/Dockerfile'))
+    from "alpine:$alpineVersion"
+    runCommand 'apk add --no-cache openjdk11'
+    copyFile "*.jar", '/app/app.jar'
+    workingDir '/app/'
+    entryPoint 'java'
+    defaultCommand '-jar', "/app/app.jar"
+}
+
+task dockerBuild(type: DockerBuildImage, dependsOn: dockerFile) {
+    inputDir.set(file("$projectDir/build/libs"))
+    doLast {
+        println("creatig image: $dockerRepoUrl/${project.name}:$version")
+    }
+    images.add("$dockerRepoUrl/${project.name}:$version")
+}
+
+task dockerPush(type: DockerPushImage, dependsOn: dockerBuild) {
+    images.add("$dockerRepoUrl/${project.name}:$version")
+
+    registryCredentials.setUsername("$dockerHubUsername")
+    registryCredentials.setPassword("$dockerHubPassword")
+    registryCredentials.setEmail("$dockerHubEmail")
+}
+
 

@@ -1,17 +1,10 @@
-
-server:
-  port: 8085
-
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: update
-    open-in-view: false
-  application:
-    name: ProductRez
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: 12345
-
+    url: jdbc:mysql://${DATABASE_HOSTNAME:localhost}:${DATABASE_PORT:3306}/epm?createDatabaseIfNotExist=true
+    username: ${DATABASE_USER:root}
+    password: ${DATABASE_PASSWORD:password}
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: false
+    open-in-view: false
